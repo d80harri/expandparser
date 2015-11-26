@@ -24,14 +24,11 @@ public class Lexer {
     private static final char EOF_SY = (char) -1;
     private static final char POINT_SY = '.';
     private static final char DOLLAR_SY = '$';
-    private static final char LEFT_CURLY_SY = '{';
-    private static final char RIGHT_CURLY_SY = '}';
     private static final char SEMICOLON_SY = ',';
-    private static final char LEFT_SQUARE_SY = '[';
-    private static final char RIGHT_SQUARE_SY = ']';
     private static final char LEFT_ROUND_SY = '(';
     private static final char RIGHT_ROUND_SY = ')';
     private static final char PLUS_SY = '+';
+    private static final char EXCLIMATION_SY = '!';
 
     static {
         LOWER_LETTERS_SY_G = Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
@@ -79,14 +76,8 @@ public class Lexer {
             result = readToken(Type.DOLLAR);
         } else if (PLUS_SY == currentChar.getCargo()) {
             result = readToken(Type.PLUS);
-        } else if (LEFT_CURLY_SY == currentChar.getCargo()) {
-            result = readToken(Type.LEFT_CURLY);
-        } else if (RIGHT_CURLY_SY == currentChar.getCargo()) {
-            result = readToken(Type.RIGHT_CURLY);
-        } else if (LEFT_SQUARE_SY == currentChar.getCargo()) {
-            result = readToken(Type.LEFT_SQUARE);
-        } else if (RIGHT_SQUARE_SY == currentChar.getCargo()) {
-            result = readToken(Type.RIGHT_SQUARE);
+        } else if (EXCLIMATION_SY == currentChar.getCargo()) {
+        	result = readToken(Type.EXCLIMATION);
         } else if (LEFT_ROUND_SY == currentChar.getCargo()) {
             result = readToken(Type.LEFT_ROUND);
         } else if (RIGHT_ROUND_SY == currentChar.getCargo()) {
@@ -97,6 +88,10 @@ public class Lexer {
             result = readNumber();
         } else if (POINT_SY == currentChar.getCargo()) {
             result = readToken(Type.POINT);
+            if (POINT_SY == scanner.get().getCargo()) {
+            	readToken(Type.POINT);
+            	result = new Token(currentChar, Type.RANGE);
+            }
         } else if (SEMICOLON_SY == currentChar.getCargo()) {
             result = readToken(Type.SEMICOLON);
         } else {
