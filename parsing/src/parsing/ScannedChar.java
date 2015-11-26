@@ -10,6 +10,7 @@ public class ScannedChar {
     private int column;
     private int location;
     private char cargo;
+    private String context;
 
     public ScannedChar(int line, int column, int location, char cargo) {
         super();
@@ -19,7 +20,13 @@ public class ScannedChar {
         this.cargo = cargo;
     }
 
-    public int getLine() {
+    public ScannedChar(int line, int column, int location,
+			char cargo, String context) {
+		this(line, column, location, cargo);
+		this.context = context;
+	}
+
+	public int getLine() {
         return line;
     }
 
@@ -34,6 +41,10 @@ public class ScannedChar {
     public char getCargo() {
         return cargo;
     }
+    
+    public String getContext() {
+		return context;
+	}
 
     @Override
     public String toString() {

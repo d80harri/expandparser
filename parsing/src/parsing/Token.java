@@ -11,17 +11,19 @@ public class Token {
     private int line;
     private int column;
     private Type type;
+    private String context;
 
-    public Token(String cargo, int line, int column, Type type) {
+    public Token(String cargo, int line, int column, Type type, String context) {
         super();
         this.cargo = new StringBuffer(cargo);
         this.line = line;
         this.column = column;
         this.type = type;
+        this.context = context;
     }
 
     public Token(ScannedChar currentChar, Type type) {
-        this("" + currentChar.getCargo(), currentChar.getLine(), currentChar.getColumn(), type);
+        this("" + currentChar.getCargo(), currentChar.getLine(), currentChar.getColumn(), type, currentChar.getContext());
     }
 
     public void appendCargo(String cargo) {
@@ -59,6 +61,10 @@ public class Token {
     public void setType(Type type) {
         this.type = type;
     }
+    
+    public String getContext() {
+		return context;
+	}
 
     @Override
     public String toString() {

@@ -11,7 +11,7 @@ import parsing.Token.Type;
 public class ParsingException extends Exception {
 
     public ParsingException(Token currentToken, Type[] expectedType) {
-        super("Found token " + currentToken + " but expected one of" + Arrays.toString(expectedType));
+        super("Found token " + currentToken + " but expected one of" + Arrays.toString(expectedType) + " near of \"" + currentToken.getContext() + "\"");
     }
 
 }

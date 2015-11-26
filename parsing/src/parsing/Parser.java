@@ -173,7 +173,7 @@ public class Parser {
 		String parseString = "test.blubb, test.bla.sub, test.bla!1+2, test.hallo!1..2(one!17+4, two), test.other!10(0)";
 		StringBuffer buffer = new StringBuffer(parseString);
 		
-		for (int i=0; i<500000; i++) {
+		for (int i=0; i<5000; i++) {
 			buffer.append("," + parseString);
 		}
 		

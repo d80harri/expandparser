@@ -9,21 +9,21 @@ import java.io.InputStream;
  */
 public class Scanner {
 
-    private InputStream stream;
     private int currentLine = 0;
     private int currentColumn = 0;
     private int currentLocation = 0;
 
     private ScannedChar currentChar;
+    private ScannerBuffer buffer = null;
 
-    public Scanner(InputStream stream) {
-        this.stream = stream;
+    public Scanner(InputStream stream) throws IOException {
+    	buffer = new ScannerBuffer(10, stream);
     }
 
     public ScannedChar next() throws IOException {
         ScannedChar result = null;
         int c = readNext();
-        result = new ScannedChar(currentLine, currentColumn, currentLocation, (char) c);
+        result = new ScannedChar(currentLine, currentColumn, currentLocation, (char) c, buffer.getContext());
         currentChar = result;
         return result;
     }
@@ -38,7 +38,7 @@ public class Scanner {
         do {
             currentLocation++;
             currentColumn++;
-            result = stream.read();
+            result = buffer.read();
             if (result == '\n') {
                 currentLine++;
                 currentColumn = 0;
